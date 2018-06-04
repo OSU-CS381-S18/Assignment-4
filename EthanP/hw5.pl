@@ -17,7 +17,7 @@ enroll(john,381).
 enroll(jim,399).
 
 /* Exercise 1
-	part a*/
+	Part a*/
 
 schedule(X,P,T) :- enroll(X,R), where(R,P), when(R,T).
 
@@ -28,3 +28,21 @@ usage(X,Y) :- where(T,X), when(T,Y).
 /* 	Part c*/
 
 conflict(X,Y) :- where(X, P), when(X,T), where(Y,P), when(Y,T), X\=Y.
+
+/*	Part d*/
+
+time(X,Y) :- X =:= Y+1.
+time(X,Y) :- X =:= Y-1.
+meet(A,B) :- enroll(A,C), enroll(B,C), A\=B.
+meet(A,B) :- enroll(A,C), when(C,H),where(C,L),enroll(B,D),when(D,Y),where(C,L),time(H,Y), A\=B.
+
+/* Exercise 2
+	Part a*/
+
+/*	Part b*/
+	flat([],[]) :- !.
+	flat([InputList|OutputList], FlatendL) :- !, flat(InputList, NewList), flat(OutputList, NewList2),
+		append(NewList,NewList2, FlatendL).
+	flat(L,[L]).
+
+/* 	Part c*/
