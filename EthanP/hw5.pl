@@ -1,3 +1,6 @@
+/*
+*	Contributors :: Ethan Patterson | Blake Hudson | Ethan Ahuja 
+*/
 when(275,10).
 when(261,12).
 when(381,11).
@@ -40,9 +43,19 @@ meet(A,B) :- enroll(A,C), when(C,H),where(C,L),enroll(B,D),when(D,Y),where(C,L),
 	Part a*/
 
 /*	Part b*/
+
 	flat([],[]) :- !.
 	flat([InputList|OutputList], FlatendL) :- !, flat(InputList, NewList), flat(OutputList, NewList2),
 		append(NewList,NewList2, FlatendL).
 	flat(L,[L]).
 
 /* 	Part c*/
+	findE(_,[],[]).
+	findE([],_,[]).
+	findE(1,[X|_],X) :- !.	
+
+	%findE(X,[X|_],1).
+	%findE(X,[_|List],N) :- N > 1, N1 is X-1, findE(N1,List,N).
+	findE(X,[_|List],N) :- \+ is_list(X), N1 is X-1, findE(N1,List,N).
+	findE([X1|X2],L,[Y1|Y2]) :- findE(X1,L,Y1), findE(X2,L,Y2).
+	project(I,List,L) :- findE(I,List,Flat1), flat(Flat1,L).
