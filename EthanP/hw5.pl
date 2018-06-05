@@ -41,6 +41,15 @@ meet(A,B) :- enroll(A,C), when(C,H),where(C,L),enroll(B,D),when(D,Y),where(C,L),
 
 /* Exercise 2
 	Part a*/
+%if empty list
+rdup([], []).
+%Transfer list
+rdup([L], [L]).
+%Take top elem off list L
+rdup([D, D | T], M) :- rdup([D | T], M).
+% Take top two elem off of L compare if they are similar if not then
+% concat next element to list M
+rdup([D1, D2 | T], [D1 | M]) :- D1 \= D2, rdup([D2 | T], M).
 
 /*	Part b*/
 
